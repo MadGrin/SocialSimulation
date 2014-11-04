@@ -253,6 +253,7 @@ public class TheSim {
         System.out.print("\n===================================");
         System.out.print("\nSIMULAZIONE COMUNITA'");
         System.out.print("\nPARISI-NICOLUSSI-SITA'");
+        System.out.print("\nemail: r.nicolussi@gmail.com");
         System.out.print("\n===================================");
         
         System.out.print("\n\nChe tipo di simulazione vuoi eseguire? \n1) interattiva\n"
