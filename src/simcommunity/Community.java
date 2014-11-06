@@ -65,7 +65,7 @@ public class Community {
                  System.out.print(appo.getY());*/
                 j = 0;
                 sovrapposto = false;
-                while ((j < i) && (sovrapposto == false)) {
+                while ((j < i) && (sovrapposto == false)) { //ciclo sulle persone già presenti in communityArray per vedere se si sovrappongono con la nuova creata
 
                     /*System.out.print("\nj");
                      System.out.print(j);
@@ -88,19 +88,31 @@ public class Community {
 
         }
 
-			//genera collegamenti casuali tra le persone della comunità
-			//TO-DO: evitare collegamenti doppi/tripli/ecc ...
-			//USARE: funzioni avanzate array
+	//genera collegamenti casuali tra le persone della comunità
+	
+	//USARE: funzioni avanzate array
+        
         //http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/Array.html#length
+        
+        Boolean link_duplicato=false;
+        
         for (i = 0; i < linkNumber; i++) {
             link[i] = new Collegamento();
 
             do {
 
+                link_duplicato=false;
+                
                 link[i].start = (int) Math.round(0 + (communitySize-1) * Math.random());
                 link[i].end = (int) Math.round(0 + (communitySize-1) * Math.random());
+                
+                for (int index=0; (index<i&&!link_duplicato); index++)
+                {
+                    if (((link[index].start==link[i].start) && (link[index].end==link[i].end)) || 
+                        ((link[index].start==link[i].end) && (link[index].end==link[i].start)) )  link_duplicato=true;
+                }
 
-            } while (link[i].start == link[i].end); // evita collegamenti con sè stessi				
+            } while ((link[i].start == link[i].end)&&(!link_duplicato)); // evita collegamenti con sè stessi				
 
         }
 

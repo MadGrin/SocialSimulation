@@ -254,12 +254,14 @@ public class TheSim {
         System.out.print("\nSIMULAZIONE COMUNITA'");
         System.out.print("\nPARISI-NICOLUSSI-SITA'");
         System.out.print("\nemail: r.nicolussi@gmail.com ");
-        System.out.print("\n==============8888=====================");
+        System.out.print("\n===================================");
         
         System.out.print("\n\nChe tipo di simulazione vuoi eseguire? \n1) interattiva\n"
                 + "2) batch con individui fissi, connessioni variabili\n"
                 + "3) batch con connessioni fisse,  individui variabili\n"
-                + "4) batch completo");
+                + "4) batch completo\n"
+                + "5) batch completo con collegamenti espressi in % "
+        );
         int scelta = valore.nextInt();
         
         switch (scelta) {
@@ -268,6 +270,7 @@ public class TheSim {
         case 2:  batchSim_fixedindividui(); break;
         case 3:  batchSim_fixedconnessioni(); break;
         case 4:  batchSim_completa(); break;
+        case 5:  batchSim_completa_percentuali(); break;
         }
         
     }
@@ -311,6 +314,69 @@ public class TheSim {
             o=ciclocomunita();
             
             System.out.println("\n"+i+"\t\t"+GlobalVar.numcollegamenti+"\t\t"+GlobalVar.ereEffettuate+"\t\t"+o);
+            
+        }
+        
+        
+    }
+    
+    public static void batchSim_completa_percentuali() {
+                
+        Scanner valore = new Scanner(System.in).useLocale(Locale.US);
+        
+        double o; //omogeneità
+        
+        System.out.print("\n===================================");
+        System.out.print("\nSIMULAZIONE BATCH completa con collegamenti espressi in percentuali\n");
+        System.out.print("\n===================================");
+        
+        System.out.print("\n\nNumero individui iniziale ");
+        int comIniziali = valore.nextInt();
+        
+        System.out.print("Numero individui finale ");
+        int comFinale = valore.nextInt();
+        
+        System.out.print("Incremento individui ");
+        int incrementocomunita = valore.nextInt();
+
+        System.out.print("Percentuale (sul numero di individui) di collegamenti iniziale ");
+        int pcolIniziali = valore.nextInt();
+        
+        System.out.print("Percentuale (sul numero di individui) di collegamenti finale ");
+        int pcolFinali = valore.nextInt();
+        
+        System.out.print("Incremento percentuale dei collegamenti ");
+        int pincrementocollegamenti = valore.nextInt();
+      
+        System.out.print("Dimensione del DNA (meglio multipli di 9) ");
+        GlobalVar.dimDNA = valore.nextInt();
+
+        System.out.print("Soglia ere massima (limite di cicli oltre i quali il tentativo di omogeneizzazione termina ");
+        GlobalVar.numERE = valore.nextInt();
+        
+        System.out.print("Soglia di omogeneità ");
+        GlobalVar.omoSoglia = valore.nextDouble();
+        
+        //modifica
+        //System.out.println("\nind\tcon\tere\tomo");
+        
+        //Riga degli individui
+        for (int i=comIniziali; i<=comFinale; i=i+incrementocomunita) System.out.print("\t"+i);
+        System.out.println("\tnumero membri della comunità");
+        
+        for (int j=pcolIniziali; j<=pcolFinali; j=j+pincrementocollegamenti)
+        {
+            System.out.print(j+"%\t");
+            for (int i=comIniziali; i<=comFinale; i=i+incrementocomunita)
+            {  GlobalVar.dimensionecom=i;
+               GlobalVar.numcollegamenti=Math.round(j*i/100);  //il j% della comunità i deve essere connessa
+                        
+               o=ciclocomunita();
+                        
+               System.out.print(GlobalVar.ereEffettuate+"\t");
+            }
+            System.out.println();
+            
             
         }
         
